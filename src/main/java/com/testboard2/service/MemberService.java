@@ -1,5 +1,9 @@
 package com.testboard2.service;
 
-public interface MemberService {
+import com.testboard2.dto.MemberDTO;
 
+public interface MemberService {
+	
+	public void insertMember(MemberDTO memberDTO);
+		
 }
