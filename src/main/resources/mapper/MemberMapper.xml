@@ -15,6 +15,15 @@
 			#{phone}
 		);
 	</insert>
+
+	<select id="selectMemberOne" parameterType="int" resultType="MemberDTO">
+		SELECT *
+		FROM member
+		WHERE num=#{num};
+	
+	</select>	
+	
+	
 </mapper>
 
 

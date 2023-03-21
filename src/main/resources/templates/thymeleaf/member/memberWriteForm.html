@@ -16,21 +16,19 @@
 	</head>
 	<body>
 
-		<h1>Member 
-				Registration
-		Form</h1>
+		<h1 >Member <span th:text="${formTitle}"></span> Form</h1>
 		
-		<form action="/member/memberWriteOk" method="POST" >
+		<form action="#" th:action="@{/member/memberWriteOk}" th:object="${memberDTO}" method="POST" >
 			<label for="name">Name</label>
-			<input type="text" id="name" name="name" >
+			<input type="text" id="name" name="name" th:field="*{name}">
 			<br>
 			
 			<label for="id">ID</label>
-			<input type="text" id="id" name="id" >
+			<input type="text" id="id" name="id" th:field="*{id}">
 			<br>
 			
 			<label for="phone">Phone</label>
-			<input type="text" id="phone" name="phone" >
+			<input type="text" id="phone" name="phone" th:field="*{phone}">
 			<br>
 			<br>
 			
