@@ -12,10 +12,22 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberMapper memberMapper;
 
+	
+	/*
+	 * Insert Member
+	 */
 	@Override
 	public void insertMember(MemberDTO memberDTO) {
 		
 		memberMapper.insertMember(memberDTO);
+	}
+	
+	/*
+	 * Select Member One
+	 */
+	@Override
+	public MemberDTO getMemberOne(int num) {
 		
+		return memberMapper.selectMemberOne(num);
 	}
 }

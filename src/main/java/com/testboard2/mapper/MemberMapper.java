@@ -7,5 +7,6 @@ import com.testboard2.dto.MemberDTO;
 public interface MemberMapper {
 
 	public void insertMember(MemberDTO memberDTO);
+	public MemberDTO selectMemberOne(int num);
 	
 }
