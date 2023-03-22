@@ -1,5 +1,7 @@
 package com.testboard2.controller;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,26 @@ public class MemberController {
 			
 			// Step #1) 전달받은 num값과 일치하는 회원 정보를 DB에서 가져옴
 			MemberDTO m1=memberService.getMemberOne(num);
+			
+			// DB에서 가져온 회원정보가 없을 경우 --> m1 객체가 null 인 경우
+			if( m1 == null) {
+				// case #1 : 리다이렉트 (가장 간단함)
+				// return "redirect:/";
+				
+				/* case #2 : PrintWriter 사용
+				 * import 필요, 추가 처리 필요(코드)
+				 * HttpServletResponse response) throws Exception{ ...}
+				 */ 
+				
+				// case #3 : Model을 사용해 특정 페이지(Error Message Page)로 데이터 값들을 보내서 출력하는 방법
+				model.addAttribute("msg", "회원 정보가 없습니다. 메인 페이지로 이동합니다.");
+				model.addAttribute("url", "/");
+				
+				return "/member/errorMessage"; // errorMessage.html
+			}
+			
+			
+			
 			System.out.println(m1.toString());
 			
 			// Step #2) DB로부터 가져온 회원정보를 Form 페이지로 전달
@@ -47,8 +69,7 @@ public class MemberController {
 		}else {
 			System.out.println("num = null >>> 회원 등록 Form 페이지 처리");
 			// num 값이 null인 경우 넘어온 param이 없으므로 "회원 등록 Form 페이지" 처리
-			MemberDTO m1 = new MemberDTO();
-			model.addAttribute("memberDTO", m1);
+			model.addAttribute("memberDTO", new MemberDTO());
 			model.addAttribute("formTitle", "Registration"); // 회원 등록 화면으로 보여주기위한 title 값 전달
 		
 		}
