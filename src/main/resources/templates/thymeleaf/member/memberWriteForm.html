@@ -16,9 +16,18 @@
 	</head>
 	<body>
 
-		<h1 >Member <span th:text="${formTitle}"></span> Form</h1>
+		<h1>Member 
+				<span th:if="${formTitle} == 'Modification'" th:text="${formTitle}"></span>
+				<span th:unless="${formTitle} == 'Modification'" th:text="${formTitle}"></span>
+		Form</h1>
 		
-		<form action="#" th:action="@{/member/memberWriteOk}" th:object="${memberDTO}" method="POST" >
+		<form
+			th:object="${memberDTO}"
+			th:action="${formTitle != 'Registration' ? '/member/memberUpdateOk' : '/member/memberWriteOk'}" 
+			method="POST" 
+			id="memberWriteForm">
+			<input type="hidden" name="num" th:if="${formTitle} == 'Modification'" th:value="${num}">
+		
 			<label for="name">Name</label>
 			<input type="text" id="name" name="name" th:field="*{name}">
 			<br>
@@ -32,11 +41,13 @@
 			<br>
 			<br>
 			
-			<input type="submit" value="Submit"	> <input type="reset" value="Resut"> 
-			
 		</form>
 		
-		
+		<div th:switch="${formTitle}">
+			<button type="submit" form="memberWriteForm" th:case="Registration">회원등록</button>
+			<button type="submit" form="memberWriteForm" th:case="Modification">회원수정</button>
+			<button type="submit" form="memberWriteForm" th:case="Deletion">회원삭제</button>
+		</div>
 
 	</body>
 </html>
