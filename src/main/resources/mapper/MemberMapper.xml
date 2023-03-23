@@ -5,6 +5,7 @@
 
 	<insert id="insertMember" parameterType="MemberDTO">
 		<!-- INSERT INTO member (name, id, phone) VALUES ("이순신", "mr.soon", 010-111-2222); -->
+		<![CDATA[
 		INSERT INTO member (
 			name,
 			id,
@@ -14,14 +15,30 @@
 			#{id},
 			#{phone}
 		);
+		]]>
 	</insert>
 
 	<select id="selectMemberOne" parameterType="int" resultType="MemberDTO">
+		<![CDATA[
 		SELECT *
 		FROM member
 		WHERE num=#{num};
-	
+		 ]]>
 	</select>	
+	
+	<update id="updateMember" parameterType="MemberDTO">
+	<![CDATA[
+		UPDATE member
+		SET   name=#{name}
+			, id=#{id}
+			, phone=#{phone}
+		WHERE num=#{num};
+	]]>
+	
+	
+	
+	
+	</update>
 	
 	
 </mapper>

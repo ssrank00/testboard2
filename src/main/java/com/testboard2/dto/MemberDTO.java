@@ -3,20 +3,18 @@ package com.testboard2.dto;
 public class MemberDTO {
 	
 	// idx
-	
+
+	private int num;
 	private String name;
 	private String id;
 	private String phone;
 	
-	public MemberDTO() {}
-	
-	
-	
-	public MemberDTO(String name, String id, String phone) {
-		super();
-		this.name = name;
-		this.id = id;
-		this.phone = phone;
+	// Getters and Setters
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getName() {
 		return name;
@@ -38,11 +36,10 @@ public class MemberDTO {
 	}
 	@Override
 	public String toString() {
-		return "MemberDTO [name=" + name + ", id=" + id + ", phone=" + phone + "]";
+		return "MemberDTO [num=" + num + ", name=" + name + ", id=" + id + ", phone=" + phone + "]";
 	}
 	
-	 
-	
+
 	
 
 }
