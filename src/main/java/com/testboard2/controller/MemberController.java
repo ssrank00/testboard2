@@ -129,6 +129,11 @@ public class MemberController {
 			System.out.println(m1.getPhone());
 			memberService.updateMember(m1);
 			
+			// 안내 메시지 및 URL 정보를 전달  --> messageAlert.html
+			model.addAttribute("msg","회원 정보가 수정되었습니다. 확인 페이지로 이동합니다.");
+			model.addAttribute("url", "/member/memberWriteForm?num="+num);
+			
+			return "/member/messageAlert"; // messageAlert.html
 			
 		}catch(Exception e) {
 			// err 처리
