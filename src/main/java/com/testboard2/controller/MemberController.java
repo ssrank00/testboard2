@@ -85,9 +85,9 @@ public class MemberController {
 	 * 사용자 정보를 받아 등록하는 부분
 	 */
 	@PostMapping("/member/memberWriteOk")
-	public String insertMember(
 			MemberDTO m1,
 			Model model) {
+	public String insertMember(
 		
 		// 사용자 등록 처리
 		try {
