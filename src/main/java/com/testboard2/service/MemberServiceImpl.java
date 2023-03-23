@@ -30,4 +30,12 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberMapper.selectMemberOne(num);
 	}
+
+	/*
+	 * Update Member
+	 */
+	@Override
+	public void updateMember (MemberDTO memberDTO) {
+		memberMapper.updateMember(memberDTO);
+	}
 }

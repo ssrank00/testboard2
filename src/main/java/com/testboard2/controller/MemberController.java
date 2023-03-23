@@ -1,6 +1,6 @@
 package com.testboard2.controller;
 
-import java.lang.ProcessBuilder.Redirect;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +55,7 @@ public class MemberController {
 				model.addAttribute("msg", "회원 정보가 없습니다. 메인 페이지로 이동합니다.");
 				model.addAttribute("url", "/");
 				
-				return "/member/errorMessage"; // errorMessage.html
+				return "/member/messageAlert"; // messageAlert.html
 			}
 			
 			
@@ -65,6 +65,7 @@ public class MemberController {
 			// Step #2) DB로부터 가져온 회원정보를 Form 페이지로 전달
 			model.addAttribute("memberDTO", m1); // 회원 정보 전달
 			model.addAttribute("formTitle", "Modification"); // 수정 처리 화면으로 보여주기위한 title 값 전달
+			model.addAttribute("num", num);
 			
 		}else {
 			System.out.println("num = null >>> 회원 등록 Form 페이지 처리");
@@ -80,10 +81,13 @@ public class MemberController {
 	
 	
 	/*
+	 * 회원 등록 OK
 	 * 사용자 정보를 받아 등록하는 부분
 	 */
 	@PostMapping("/member/memberWriteOk")
-	public String registerMember(MemberDTO m1) {
+			MemberDTO m1,
+			Model model) {
+	public String insertMember(
 		
 		// 사용자 등록 처리
 		try {
@@ -93,6 +97,11 @@ public class MemberController {
 			System.out.println(m1.getPhone());
 			memberService.insertMember(m1);
 			
+			// 등록 안내 메시지 출력
+			model.addAttribute("msg","회원 등록이 처리되었습니다. 메인 페이지로 이동합니다.");
+			model.addAttribute("url", "/");
+			
+			return "/member/messageAlert";
 			
 		}catch(Exception e) {
 			// err 처리
@@ -104,6 +113,40 @@ public class MemberController {
 		 * 	1. 별 차이 없음
 		 * 	2. 다만 redirect의 경우 다시 한번 해당 URL로 HTTP 요청을 넣는 형태.
 		 */
+		
+	}
+	
+	/*
+	 * 회원 수정 OK
+	 * 사용자 정보를 받아 수정하는 부분
+	 */
+	@PostMapping("/member/memberUpdateOk")
+	public String updateMember(
+			MemberDTO m1,
+			HttpServletRequest request,
+			Model model) {
+		
+		String num_=request.getParameter("num");
+		int num=Integer.parseInt(num_);
+		// 사용자 등록 처리
+		try {
+			// 수정 처리(Controller -> Service)
+			System.out.println(m1.getName());
+			System.out.println(m1.getId());
+			System.out.println(m1.getPhone());
+			memberService.updateMember(m1);
+			
+			// 안내 메시지 및 URL 정보를 전달  --> messageAlert.html
+			model.addAttribute("msg","회원 정보가 수정되었습니다. 확인 페이지로 이동합니다.");
+			model.addAttribute("url", "/member/memberWriteForm?num="+num);
+			
+			return "/member/messageAlert"; // messageAlert.html
+			
+		}catch(Exception e) {
+			// err 처리
+		}
+		
+		return "redirect:/member/memberWriteForm?num="+num; // 사용자 수정 후 보여줄 화면
 		
 	}
 
