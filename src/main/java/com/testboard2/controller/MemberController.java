@@ -85,7 +85,9 @@ public class MemberController {
 	 * 사용자 정보를 받아 등록하는 부분
 	 */
 	@PostMapping("/member/memberWriteOk")
-	public String insertMember(MemberDTO m1) {
+	public String insertMember(
+			MemberDTO m1,
+			Model model) {
 		
 		// 사용자 등록 처리
 		try {
@@ -95,6 +97,11 @@ public class MemberController {
 			System.out.println(m1.getPhone());
 			memberService.insertMember(m1);
 			
+			// 등록 안내 메시지 출력
+			model.addAttribute("msg","회원 등록이 처리되었습니다. 메인 페이지로 이동합니다.");
+			model.addAttribute("url", "/");
+			
+			return "/member/messageAlert";
 			
 		}catch(Exception e) {
 			// err 처리
