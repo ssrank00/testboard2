@@ -24,7 +24,7 @@ public class MemberController {
 	/*
 	 * 회원 등록 Form 페이지 + 회원 수정 Form 페이지
 	 */
-	@GetMapping("/member/memberWriteForm")
+	@GetMapping("/member/memberWriteFormNew")
 	public String memberWriteForm(@RequestParam(value = "num", required = false) Integer num, Model model) {
 		// required 옵션의 dafault 값은 true (false 인 경우엔 작성해줘야함)
 		// RequestParam이 null인지 비교시 주의사항
@@ -69,7 +69,7 @@ public class MemberController {
 
 		}
 
-		return "/member/memberWriteForm"; // (thymeleaf/)member/memberWriteForm.html
+		return "/member/memberWriteFormNew"; // (thymeleaf/)member/memberWriteFormNew.html
 	}
 
 	/*
